@@ -5,9 +5,11 @@
 class UnaryNonUniformMutation : public NonUniformMutation
 {
 public:
-    UnaryNonUniformMutation(double rate, Generation *generation, RealIndividualConstraint *realIndividualConstraint, NumericConstraint *iterationsConstraint, uint *iteration);
-    void mutation(const uint &gene, RealIndividual *mutant);
-    void mutation(RealIndividual *mutant);
+    UnaryNonUniformMutation(double rate, Generation *generation, IndividualConstraint *individualConstraint, NumericConstraint<uint> *iterationsConstraint);
+    ~UnaryNonUniformMutation();
+    void mutation(const uint &gene, Individual *mutant);
+    void mutation(Individual *mutant);
+    void print(std::ostream& os) const;
 };
 
 #endif // UNARYNONUNIFORMMUTATION_H

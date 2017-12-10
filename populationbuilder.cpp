@@ -4,3 +4,8 @@ PopulationBuilder::PopulationBuilder()
 {
 
 }
+
+PopulationBuilder::~PopulationBuilder()
+{
+
+}

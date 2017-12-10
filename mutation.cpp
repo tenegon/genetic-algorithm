@@ -5,6 +5,11 @@ Mutation::Mutation(Population *childs): childs(childs)
     
 }
 
+Mutation::~Mutation()
+{
+    childs = 0;
+}
+
 Population *Mutation::getChilds() const
 {
     return childs;

@@ -1,16 +1,16 @@
 #ifndef MUTATION_H
 #define MUTATION_H
 #include "population.h"
-enum class MUTATION{Uniform, MultipleUniform, NonUniform, MultipleNonUniform, Boundary, MultipleBoundary, Heuristic, MultipleHeuristic, Polynomial, MultiplePolynomial};
 
 class Mutation
 {
 protected:
-    Population *childs;
+    Population *childs = 0;
     double mutantGene;
     uint gene;
 public:
     Mutation(Population *childs);
+    virtual ~Mutation();
     virtual void mutation(const uint &gene) = 0;
     virtual void mutation(const uint &gene, Individual *mutant) = 0;
     virtual void mutation(Individual *mutant) = 0;

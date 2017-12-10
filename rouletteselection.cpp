@@ -5,6 +5,11 @@ RouletteSelection::RouletteSelection(double rate, Generation *generation, bool w
 
 }
 
+RouletteSelection::~RouletteSelection()
+{
+
+}
+
 void RouletteSelection::makeRanking()
 {
     S = 0.0f;
@@ -33,4 +38,10 @@ double RouletteSelection::getShift() const
 void RouletteSelection::setShift(double value)
 {
     shift = value;
+}
+
+void RouletteSelection::print(std::ostream &os) const
+{
+    os << "Roulette Selection ";
+    GeneticOperator::print(os);
 }

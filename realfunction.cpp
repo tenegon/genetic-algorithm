@@ -4,3 +4,8 @@ RealFunction::RealFunction(): Function()
 {
 
 }
+
+RealFunction::~RealFunction()
+{
+
+}

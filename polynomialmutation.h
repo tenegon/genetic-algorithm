@@ -10,7 +10,8 @@ protected:
     double nm;
     double d;
 public:
-    PolynomialMutation(double rate, Generation *generation, RealIndividualConstraint *realIndividualConstraint, double U, double L, double nm);
+    PolynomialMutation(double rate, Generation *generation, IndividualConstraint *individualConstraint, double U, double L, double nm);
+    ~PolynomialMutation();
     void mutation(const uint &gene);
     double dl();
     double dr();

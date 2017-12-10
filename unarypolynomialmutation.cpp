@@ -1,23 +1,37 @@
 #include "unarypolynomialmutation.h"
 
-UnaryPolynomialMutation::UnaryPolynomialMutation(double rate, Generation *generation, RealIndividualConstraint *realIndividualConstraint, double U, double L, double nm): PolynomialMutation(rate, generation, realIndividualConstraint, U, L, nm)
+UnaryPolynomialMutation::UnaryPolynomialMutation(double rate, Generation *generation, IndividualConstraint *individualConstraint, double U, double L, double nm): PolynomialMutation(rate, generation, individualConstraint, U, L, nm)
 {
 
 }
 
-void UnaryPolynomialMutation::mutation(const uint &gene, RealIndividual *mutant)
+UnaryPolynomialMutation::~UnaryPolynomialMutation()
 {
+
+}
+
+void UnaryPolynomialMutation::mutation(const uint &gene, Individual *mutant)
+{
+    RealIndividual *realMutant = dynamic_cast<RealIndividual*>(mutant);
+    RealIndividualConstraint *realIndividualConstraint = dynamic_cast<RealIndividualConstraint*>(individualConstraint);
     do{
-        mutantGene = mutant->getGene(gene);
+        mutantGene = realMutant->getGene(gene);
         PolynomialMutation::mutation(gene);
     }while(!realIndividualConstraint->isGeneFeasible(gene, mutantGene));
-    mutant->setGene(gene, mutantGene);
+    realMutant->setGene(gene, mutantGene);
 }
 
-void UnaryPolynomialMutation::mutation(RealIndividual *mutant)
+void UnaryPolynomialMutation::mutation(Individual *mutant)
 {
-    uint t = mutant->getGenes().size();
+    RealIndividual *realMutant = dynamic_cast<RealIndividual*>(mutant);
+    uint t = realMutant->getGenes().size();
     for(gene = 0; gene < t; gene++){
         mutation(gene, mutant);
     }
+}
+
+void UnaryPolynomialMutation::print(std::ostream &os) const
+{
+    os << "Unary Polynomial Mutation ";
+    GeneticOperator::print(os);
 }

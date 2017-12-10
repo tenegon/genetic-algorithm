@@ -5,9 +5,11 @@
 class UnaryBoundaryMutation : public BoundaryMutation
 {
 public:
-    UnaryBoundaryMutation(double rate, Generation *generation, RealIndividualConstraint *realIndividualConstraint);
-    void mutation(const uint &gene, RealIndividual *mutant);
-    void mutation(RealIndividual *mutant);
+    UnaryBoundaryMutation(double rate, Generation *generation, IndividualConstraint *individualConstraint);
+    ~UnaryBoundaryMutation();
+    void mutation(const uint &gene, Individual *mutant);
+    void mutation(Individual *mutant);
+    void print(std::ostream& os) const;
 };
 
 #endif // UNARYBOUNDARYMUTATION_H

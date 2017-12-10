@@ -1,6 +1,11 @@
 #include "tournamentselection.h"
 
-TournamentSelection::TournamentSelection(double rate, Generation *generation, uint tournamentSize): Selection(rate, generation), tournamentSize(tournamentSize)
+TournamentSelection::TournamentSelection(double rate, Generation *generation, bool withSorting, uint tournamentSize): Selection(rate, generation, withSorting), tournamentSize(tournamentSize)
+{
+
+}
+
+TournamentSelection::~TournamentSelection()
 {
 
 }
@@ -10,6 +15,7 @@ void TournamentSelection::select()
     uint t = population->getPopulation()->size();
     currentSelected = rand() % t;
     Individual *selected = population->get(currentSelected);
+    Individual *dad = parents->get(currentParent);
     for(uint i = 1; i < tournamentSize; i++){
         currentChallenger = rand() % t;
         Individual *challenger = population->get(currentChallenger);
@@ -18,17 +24,8 @@ void TournamentSelection::select()
             currentSelected = currentChallenger;
         }
     }
-    parents->set(currentParent, selected);
-}
-
-void TournamentSelection::apply()
-{
-    uint u = parents->getPopulation()->size();
-    for(currentParent = 0; currentParent < u; currentParent++){
-        if(r() <= rate){
-            select();
-        }
-    }
+    dad->set(selected);
+    selected->setSelected(true);
 }
 
 uint TournamentSelection::getTournamentSize() const
@@ -39,4 +36,10 @@ uint TournamentSelection::getTournamentSize() const
 void TournamentSelection::setTournamentSize(const uint &value)
 {
     tournamentSize = value;
+}
+
+void TournamentSelection::print(std::ostream &os) const
+{
+    os << "Tournament Selection ";
+    GeneticOperator::print(os);
 }

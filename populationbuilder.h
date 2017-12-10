@@ -2,13 +2,13 @@
 #define POPULATIONBUILDER_H
 #include "individualbuilder.h"
 #include "population.h"
-enum class INITIALPOPULATION{Random, Boundary};
 
 class PopulationBuilder
 {
 public:
     PopulationBuilder();
-    virtual void initiate(IndividualBuilder *individualGenerator, Population *population) = 0;
+    virtual ~PopulationBuilder();
+    virtual void initiate(IndividualBuilder *individualBuilder, Population *population) = 0;
 };
 
 #endif // POPULATIONBUILDER_H

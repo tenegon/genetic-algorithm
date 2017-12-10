@@ -5,11 +5,11 @@
 class NonUniformMutation : public RealMutation
 {
 protected:
+    NumericConstraint<uint> *iterationsConstraint;
     double b;
-    NumericConstraint *iterationsConstraint;
-    uint *iteration;
 public:
-    NonUniformMutation(double rate, Generation *generation, RealIndividualConstraint *realIndividualConstraint, NumericConstraint *iterationsConstraint, uint *iteration);
+    NonUniformMutation(double rate, Generation *generation, IndividualConstraint *individualConstraint, NumericConstraint<uint> *iterationsConstraint, double b = 6.0);
+    ~NonUniformMutation();
     void mutation(const uint &gene);
     double fg();
 };

@@ -1,6 +1,11 @@
 #include "realcrossover.h"
 
-RealCrossover::RealCrossover(double rate, Generation *generation, RealIndividualConstraint *realIndividualConstraint): RealGeneticOperator(rate, generation, realIndividualConstraint), Crossover(generation->getParents(), generation->getChilds())
+RealCrossover::RealCrossover(double rate, Generation *generation, IndividualConstraint *individualConstraint): RealGeneticOperator(rate, generation, individualConstraint), Crossover(generation->getParents(), generation->getChilds())
+{
+    setRange(0, generation->getChilds()->getT() - 1);
+}
+
+RealCrossover::~RealCrossover()
 {
 
 }
@@ -14,20 +19,16 @@ void RealCrossover::cross()
     RealIndividual* mom = dynamic_cast<RealIndividual*>(parents->get(currentMom));
     RealIndividual* child = dynamic_cast<RealIndividual*>(childs->get(currentChild));
     crossing(dad, mom, child);
+    child->setParent1(dad);
+    child->setParent2(mom);
 
 }
 
 void RealCrossover::apply()
 {
-    uint y = childs->getPopulation()->size();
-    uint u = parents->getPopulation()->size();
-    for(currentChild = 0; currentChild < y; currentChild++){
+    for(currentChild = range->getMinimum(); currentChild <= range->getMaximum(); currentChild++){
         if(r() <= rate){
             cross();
-        }
-        else{
-            Individual* dad = parents->get(rand() % u);
-            childs->set(currentChild, dad);
         }
     }
 }

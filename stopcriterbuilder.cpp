@@ -5,7 +5,20 @@ StopCriterBuilder::StopCriterBuilder()
 
 }
 
-StopCriter *StopCriterBuilder::buildNumericStopCriter(double minimum, double maximum, double *value)
+StopCriterBuilder::~StopCriterBuilder()
 {
-    return new NumericStopCriter(new NumericConstraint(minimum, maximum, value));
+
 }
+/*
+template <typename T>
+StopCriter *StopCriterBuilder::buildNumericStopCriter(STOPCRITER stopCriter, T minimum, T maximum, T *value)
+{
+    return new NumericStopCriter<T>(stopCriter, new NumericConstraint<T>(minimum, maximum, value));
+}
+
+template <typename T>
+StopCriter *StopCriterBuilder::buildNumericStopCriter(STOPCRITER stopCriter, NumericConstraint<T> *numericConstraint)
+{
+    return new NumericStopCriter<T>(stopCriter, numericConstraint);
+}
+*/

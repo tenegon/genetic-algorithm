@@ -1,8 +1,15 @@
 #include "realindividualconstraint.h"
 
-RealIndividualConstraint::RealIndividualConstraint(NumericConstraint *tConstraint, NumericConstraint *fitnessConstraint, NumericConstraint *sumConstraint, RealIndividual *minimum, RealIndividual *maximum): IndividualConstraint(tConstraint, fitnessConstraint), sumConstraint(sumConstraint), minimum(minimum), maximum(maximum)
+RealIndividualConstraint::RealIndividualConstraint(NumericConstraint<uint> *tConstraint, NumericConstraint<double> *fitnessConstraint, NumericConstraint<double> *sumConstraint, RealIndividual *minimum, RealIndividual *maximum): IndividualConstraint(tConstraint, fitnessConstraint), sumConstraint(sumConstraint), minimum(minimum), maximum(maximum)
 {
 
+}
+
+RealIndividualConstraint::~RealIndividualConstraint()
+{
+    delete sumConstraint;
+    delete minimum;
+    delete maximum;
 }
 
 bool RealIndividualConstraint::isSumFeasible(const double &sum)
@@ -22,6 +29,11 @@ bool RealIndividualConstraint::areGenesFeasible(const std::vector<double> &genes
             return false;
         }
     }
+    return true;
+}
+
+bool RealIndividualConstraint::isFeasible()
+{
     return true;
 }
 
@@ -50,12 +62,12 @@ void RealIndividualConstraint::setMaximum(RealIndividual *value)
     maximum = value;
 }
 
-NumericConstraint *RealIndividualConstraint::getSumConstraint() const
+NumericConstraint<double> *RealIndividualConstraint::getSumConstraint() const
 {
     return sumConstraint;
 }
 
-void RealIndividualConstraint::setSumConstraint(NumericConstraint *value)
+void RealIndividualConstraint::setSumConstraint(NumericConstraint<double> *value)
 {
     sumConstraint = value;
 }

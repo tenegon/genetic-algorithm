@@ -5,6 +5,11 @@ RealIndividual::RealIndividual(uint t):  Individual(t), genes(std::vector<double
     
 }
 
+RealIndividual::~RealIndividual()
+{
+
+}
+
 double RealIndividual::getGene(const uint &i) const
 {
     if(i < t){
@@ -18,19 +23,19 @@ double RealIndividual::getGene(const uint &i) const
 void RealIndividual::setGene(const uint &i, const double &gene)
 {
     if(i < t){
-        sum += std::max(genes.at(i), gene) - std::min(genes.at(i), gene);
+        sum += gene - genes.at(i);
         genes.at(i) = gene;
     }
 }
 
-void RealIndividual::set(RealIndividual *individual)
+void RealIndividual::set(Individual *individual)
 {
+    RealIndividual *real = dynamic_cast<RealIndividual*>(individual);
     Individual::set(individual);
-    for(uint i = 0; i < t && i < individual->getT(); i++){
-        setGene(i, individual->getGene(i));
+    for(uint i = 0; i < t && i < real->getT(); i++){
+        setGene(i, real->getGene(i));
     }
-    t = individual->getT();
-    sum = individual->getSum();
+    sum = real->getSum();
 }
 
 Individual *RealIndividual::clone()
@@ -83,6 +88,35 @@ bool RealIndividual::operator!=(const RealIndividual &right) const
 bool RealIndividual::operator>(const RealIndividual &right) const
 {
     return Individual::operator >(right);
+}
+
+void RealIndividual::print(std::ostream &os) const
+{
+    Individual::print(os);
+    os << "\t\t";
+    uint rt = genes.size();
+    for(uint i = 0; i < rt; i++){
+        double gene = genes.at(i);
+        os  << gene << "\t";
+    }
+    os << sum;
+}
+
+std::string RealIndividual::header() const
+{
+     std::string os("");
+     os += Individual::header() + "\t";
+     uint rt = genes.size();
+     os += "{";
+     for(uint i = 0; i < rt; i++){
+         os += "[" + std::to_string(i) + "]";
+         if(i < rt - 1){
+             os += ",\t";
+         }
+     }
+     os += "}\t";
+     os += "sum";
+     return os;
 }
 
 double RealIndividual::getSum() const

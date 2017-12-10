@@ -5,6 +5,11 @@ RankSelection::RankSelection(double rate, Generation *generation, bool withSorti
 
 }
 
+RankSelection::~RankSelection()
+{
+
+}
+
 void RankSelection::makeRanking()
 {
     S = 0.0f;
@@ -16,4 +21,10 @@ void RankSelection::makeRanking()
 double RankSelection::slice()
 {
     return 1.0f / (double(currentIndividual + 1.0f));
+}
+
+void RankSelection::print(std::ostream &os) const
+{
+    os << "Rank Selection ";
+    GeneticOperator::print(os);
 }

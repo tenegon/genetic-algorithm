@@ -5,7 +5,8 @@
 class UniformMutation : public RealMutation
 {
 public:
-    UniformMutation(double rate, Generation *generation, RealIndividualConstraint *realIndividualConstraint);
+    UniformMutation(double rate, Generation *generation, IndividualConstraint *individualConstraint);
+    ~UniformMutation();
     void mutation(const uint &gene);
 };
 

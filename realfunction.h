@@ -7,6 +7,7 @@ class RealFunction : public Function
 {
 public:
     RealFunction();
+    ~RealFunction();
 };
 
 #endif // REALFUNCTION_H

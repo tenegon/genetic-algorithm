@@ -5,6 +5,11 @@ RastriginFunction::RastriginFunction(): RealFunction()
 
 }
 
+RastriginFunction::~RastriginFunction()
+{
+
+}
+
 void RastriginFunction::calcule(Individual *individual)
 {
     RealIndividual *real  = dynamic_cast<RealIndividual*>(individual);
@@ -14,4 +19,10 @@ void RastriginFunction::calcule(Individual *individual)
         fitness += pow(real->getGene(i), 2.0f) - 10.0f * cos(2.0f * PI * real->getGene(i));
     }
     individual->setFitness(fitness);
+}
+
+void RastriginFunction::print(std::ostream &os) const
+{
+    os << "Rastrigin ";
+    Function::print(os);
 }

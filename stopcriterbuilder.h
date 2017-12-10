@@ -6,7 +6,9 @@ class StopCriterBuilder
 {
 public:
     StopCriterBuilder();
-    StopCriter *buildNumericStopCriter(double minimum, double maximum, double *value);
+    ~StopCriterBuilder();
+    template <typename T> StopCriter *buildNumericStopCriter(STOPCRITER stopCriter, T minimum, T maximum, T *value){ return new NumericStopCriter<T>(stopCriter, new NumericConstraint<T>(minimum, maximum, value));}
+    template <typename T> StopCriter *buildNumericStopCriter(STOPCRITER stopCriter, NumericConstraint<T> *numericConstraint){ return new NumericStopCriter<T>(stopCriter, numericConstraint);}
 };
 
 #endif // STOPCRITERBUILDER_H

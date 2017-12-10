@@ -19,6 +19,8 @@ public:
     virtual Individual *best() const;
     virtual Individual *worst() const;
     virtual void sort();
+    friend std::ostream& operator<<(std::ostream& os, const Population& p);
+    virtual void print(std::ostream& os) const;
     virtual Individual *get(const uint &i) const;
     virtual void set(const uint &i, Individual *individual);
     uint getT() const;

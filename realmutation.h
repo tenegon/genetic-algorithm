@@ -8,7 +8,8 @@ class RealMutation : public RealGeneticOperator, public Mutation
 protected:
     RealIndividual *mutant;
 public:
-    RealMutation(double rate, Generation *generation, RealIndividualConstraint *realIndividualConstraint);
+    RealMutation(double rate, Generation *generation, IndividualConstraint *individualConstraint);
+    ~RealMutation();
     void mutate();
     void apply();
 };

@@ -6,7 +6,9 @@ class RosenbrockFunction : public RealFunction
 {
 public:
     RosenbrockFunction();
+    ~RosenbrockFunction();
     void calcule(Individual *individual);
+    void print(std::ostream& os) const;
 };
 
 #endif // ROSENBROCKFUNCTION_H

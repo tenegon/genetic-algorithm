@@ -6,7 +6,8 @@ class RealIndividualPopulationBuilder : public PopulationBuilder
 {
 public:
     RealIndividualPopulationBuilder();
-    void initiate(IndividualBuilder *individualGenerator, Population *population);
+    ~RealIndividualPopulationBuilder();
+    void initiate(IndividualBuilder *individualBuilder, Population *population);
 };
 
 #endif // REALINDIVIDUALPOPULATIONBUILDER_H

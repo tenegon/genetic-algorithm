@@ -5,6 +5,11 @@ RosenbrockFunction::RosenbrockFunction(): RealFunction()
 
 }
 
+RosenbrockFunction::~RosenbrockFunction()
+{
+
+}
+
 void RosenbrockFunction::calcule(Individual *individual)
 {
     RealIndividual *real  = dynamic_cast<RealIndividual*>(individual);
@@ -14,4 +19,10 @@ void RosenbrockFunction::calcule(Individual *individual)
         fitness += 100.0f * pow(real->getGene(i + 1) - pow(real->getGene(i), 2.0f), 2.0f) + pow(real->getGene(i) - 1.0f, 2.0f);
     }
     individual->setFitness(fitness);
+}
+
+void RosenbrockFunction::print(std::ostream &os) const
+{
+    os << "Rosenbrock ";
+    Function::print(os);
 }

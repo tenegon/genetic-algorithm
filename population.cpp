@@ -38,6 +38,25 @@ void Population::sort()
     std::sort(population->begin(), population->end(), lessThen);
 }
 
+void Population::print(std::ostream &os) const
+{
+    Individual *ind = population->at(0);
+    os << ind->header();
+    std::cout << std::endl;
+    for(uint i = 0; i < population->size(); i++){
+        os << "[" << i << "] " << *population->at(i);
+        if(i < population->size() - 1){
+            os  << std::endl;
+        }
+    }
+}
+
+std::ostream &operator<<(std::ostream &os, const Population &p)
+{
+    p.print(os);
+    return os;
+}
+
 Individual *Population::get(const uint &i) const
 {
     if(i < population->size()){

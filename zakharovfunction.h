@@ -6,7 +6,9 @@ class ZakharovFunction : public RealFunction
 {
 public:
     ZakharovFunction();
+    ~ZakharovFunction();
     void calcule(Individual *individual);
+    void print(std::ostream& os) const;
 };
 
 #endif // ZAKHAROVFUNCTION_H

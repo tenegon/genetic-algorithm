@@ -6,9 +6,10 @@
 class RealCrossover : public RealGeneticOperator, public Crossover
 {
 public:
-    RealCrossover(double rate, Generation *generation, RealIndividualConstraint *realIndividualConstraint);
+    RealCrossover(double rate, Generation *generation, IndividualConstraint *individualConstraint);
+    ~RealCrossover();
     void cross();
-    virtual void apply();
+    void apply();
 };
 
 #endif // REALCROSSOVER_H

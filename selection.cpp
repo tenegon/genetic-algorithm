@@ -1,9 +1,28 @@
 #include "selection.h"
 
-Selection::Selection(double rate, Generation *generation): GeneticOperator(rate, generation)
+Selection::Selection(double rate, Generation *generation, bool withSorting): GeneticOperator(rate, generation), withSorting(withSorting)
 {
     population = generation->getPopulation();
     parents = generation->getParents();
+    setRange(0, generation->getParents()->getT() - 1);
+}
+
+Selection::~Selection()
+{
+    population = 0;
+    parents = 0;
+}
+
+void Selection::apply()
+{
+    if(withSorting){
+        population->sort();
+    }
+    for(currentParent = range->getMinimum(); currentParent <= range->getMaximum(); currentParent++){
+        if(r() <= rate){
+            select();
+        }
+    }
 }
 
 Population *Selection::getPopulation() const
@@ -44,4 +63,14 @@ uint Selection::getCurrentChallenger() const
 void Selection::setCurrentChallenger(const uint &value)
 {
     currentChallenger = value;
+}
+
+bool Selection::getWithSorting() const
+{
+    return withSorting;
+}
+
+void Selection::setWithSorting(bool value)
+{
+    withSorting = value;
 }

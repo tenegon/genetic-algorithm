@@ -1,6 +1,11 @@
 #include "rankingselection.h"
 
-RankingSelection::RankingSelection(double rate, Generation *generation, bool withSorting): Selection(rate, generation), withSorting(withSorting), S(0.0f), sum(0.0f), limit(0.0f)
+RankingSelection::RankingSelection(double rate, Generation *generation, bool withSorting): Selection(rate, generation, withSorting), S(0.0f), sum(0.0f), limit(0.0f)
+{
+
+}
+
+RankingSelection::~RankingSelection()
 {
 
 }
@@ -20,31 +25,15 @@ void RankingSelection::select()
 {
     roll();
     Individual *dad = population->get(currentIndividual);
-    parents->set(currentParent, dad);
+    Individual *ind = parents->get(currentParent);
+    ind->set(dad);
+    dad->setSelected(true);
 }
 
 void RankingSelection::apply()
 {
-    if(withSorting){
-        population->sort();
-    }
     makeRanking();
-    uint u = parents->getPopulation()->size();
-    for(currentParent = 0; currentParent < u; currentParent++){
-        if(r() <= rate){
-            select();
-        }
-    }
-}
-
-bool RankingSelection::isWithSorting() const
-{
-    return withSorting;
-}
-
-void RankingSelection::setWithSorting(bool value)
-{
-    withSorting = value;
+    Selection::apply();
 }
 
 double RankingSelection::getS() const

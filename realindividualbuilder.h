@@ -7,6 +7,7 @@ class RealIndividualBuilder : public IndividualBuilder
 {
 public:
     RealIndividualBuilder(uint t);
+    ~RealIndividualBuilder();
     RealIndividual *build();
 };
 

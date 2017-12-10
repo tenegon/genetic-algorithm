@@ -1,16 +1,21 @@
 #include "realgeneticoperator.h"
 
-RealGeneticOperator::RealGeneticOperator(double rate, Generation *generation, RealIndividualConstraint *realIndividualConstraint): GeneticOperator(rate, generation), realIndividualConstraint(realIndividualConstraint)
+RealGeneticOperator::RealGeneticOperator(double rate, Generation *generation, IndividualConstraint *individualConstraint): GeneticOperator(rate, generation), individualConstraint(individualConstraint)
 {
 
 }
 
-RealIndividualConstraint *RealGeneticOperator::getRealIndividualConstraint() const
+RealGeneticOperator::~RealGeneticOperator()
 {
-    return realIndividualConstraint;
+    individualConstraint = 0;
 }
 
-void RealGeneticOperator::setRealIndividualConstraint(RealIndividualConstraint *value)
+IndividualConstraint *RealGeneticOperator::getRealIndividualConstraint() const
 {
-    realIndividualConstraint = value;
+    return individualConstraint;
+}
+
+void RealGeneticOperator::setRealIndividualConstraint(IndividualConstraint *value)
+{
+    individualConstraint = value;
 }

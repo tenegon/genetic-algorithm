@@ -5,12 +5,17 @@ RealIndividualPopulationBuilder::RealIndividualPopulationBuilder()
 
 }
 
-void RealIndividualPopulationBuilder::initiate(IndividualBuilder *individualGenerator, Population *population)
+RealIndividualPopulationBuilder::~RealIndividualPopulationBuilder()
+{
+
+}
+
+void RealIndividualPopulationBuilder::initiate(IndividualBuilder *individualBuilder, Population *population)
 {
     uint u = population->getT();
     population->getPopulation()->clear();
     for(uint i = 0; i < u; i++){
-        population->getPopulation()->push_back(individualGenerator->build());
+        population->getPopulation()->push_back(individualBuilder->build());
     }
 }
 

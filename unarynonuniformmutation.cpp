@@ -1,22 +1,36 @@
 #include "unarynonuniformmutation.h"
 
-UnaryNonUniformMutation::UnaryNonUniformMutation(double rate, Generation *generation, RealIndividualConstraint *realIndividualConstraint, NumericConstraint *iterationsConstraint, uint *iteration): NonUniformMutation(rate, generation, realIndividualConstraint, iterationsConstraint, iteration)
+UnaryNonUniformMutation::UnaryNonUniformMutation(double rate, Generation *generation, IndividualConstraint *individualConstraint, NumericConstraint<uint> *iterationsConstraint): NonUniformMutation(rate, generation, individualConstraint, iterationsConstraint)
 {
 
 }
 
-void UnaryNonUniformMutation::mutation(const uint &gene, RealIndividual *mutant)
+UnaryNonUniformMutation::~UnaryNonUniformMutation()
 {
+
+}
+
+void UnaryNonUniformMutation::mutation(const uint &gene, Individual *mutant)
+{
+    RealIndividual *realMutant = dynamic_cast<RealIndividual*>(mutant);
+    RealIndividualConstraint *realIndividualConstraint = dynamic_cast<RealIndividualConstraint*>(individualConstraint);
     do{
-        mutantGene = mutant->getGene(gene);
+        mutantGene = realMutant->getGene(gene);
         NonUniformMutation::mutation(gene);
     }while(!realIndividualConstraint->isGeneFeasible(gene, mutantGene));
-    mutant->setGene(gene, mutantGene);
+    realMutant->setGene(gene, mutantGene);
 }
 
-void UnaryNonUniformMutation::mutation(RealIndividual *mutant)
+void UnaryNonUniformMutation::mutation(Individual *mutant)
 {
-    uint t = mutant->getGenes().size();
+    RealIndividual *realMutant = dynamic_cast<RealIndividual*>(mutant);
+    uint t = realMutant->getGenes().size();
     gene = rand() % t;
     mutation(gene, mutant);
+}
+
+void UnaryNonUniformMutation::print(std::ostream &os) const
+{
+    os << "Unary Non-Uniform Mutation ";
+    GeneticOperator::print(os);
 }

@@ -7,11 +7,12 @@ class TournamentSelection : public Selection
 protected:
     uint tournamentSize;
 public:
-    TournamentSelection(double rate, Generation *generation, uint tournamentSize);
+    TournamentSelection(double rate, Generation *generation, bool withSorting, uint tournamentSize);
+    ~TournamentSelection();
     virtual void select();
-    void apply();
     uint getTournamentSize() const;
     void setTournamentSize(const uint &value);
+    void print(std::ostream& os) const;
 };
 
 #endif // TOURNAMENTSELECTION_H

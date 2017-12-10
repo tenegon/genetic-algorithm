@@ -1,15 +1,21 @@
 #include "polynomialmutation.h"
 
-PolynomialMutation::PolynomialMutation(double rate, Generation *generation, RealIndividualConstraint *realIndividualConstraint, double U, double L, double nm): RealMutation(rate, generation, realIndividualConstraint), U(U), L(L), nm(nm)
+PolynomialMutation::PolynomialMutation(double rate, Generation *generation, IndividualConstraint *individualConstraint, double U, double L, double nm): RealMutation(rate, generation, individualConstraint), U(U), L(L), nm(nm)
 {
     //L = individual size
     //U = ?
     //nm [20, 100]
-    nm = r() * (100.0f - 20.0f) + 20.0f;
+    //nm = r() * (100.0f - 20.0f) + 20.0f;
+}
+
+PolynomialMutation::~PolynomialMutation()
+{
+
 }
 
 void PolynomialMutation::mutation(const uint &gene)
 {
+    RealIndividualConstraint *realIndividualConstraint = dynamic_cast<RealIndividualConstraint*>(individualConstraint);
     double minGene = realIndividualConstraint->getMinimum()->getGene(gene);
     double maxGene = realIndividualConstraint->getMaximum()->getGene(gene);
     double p = mutant->getGene(gene);

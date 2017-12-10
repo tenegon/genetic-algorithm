@@ -6,11 +6,12 @@
 class RealGeneticOperator : public GeneticOperator
 {
 protected:
-    RealIndividualConstraint *realIndividualConstraint;
+    IndividualConstraint *individualConstraint;
 public:
-    RealGeneticOperator(double rate, Generation *generation, RealIndividualConstraint *realIndividualConstraint);
-    RealIndividualConstraint *getRealIndividualConstraint() const;
-    void setRealIndividualConstraint(RealIndividualConstraint *value);
+    RealGeneticOperator(double rate, Generation *generation, IndividualConstraint *individualConstraint);
+    virtual ~RealGeneticOperator();
+    IndividualConstraint *getRealIndividualConstraint() const;
+    void setRealIndividualConstraint(IndividualConstraint *value);
 };
 
 #endif // REALGENETICOPERATOR_H

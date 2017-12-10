@@ -1,8 +1,13 @@
 #include "realmutation.h"
 
-RealMutation::RealMutation(double rate, Generation *generation, RealIndividualConstraint *realIndividualConstraint): RealGeneticOperator(rate, generation, realIndividualConstraint), Mutation(generation->getChilds())
+RealMutation::RealMutation(double rate, Generation *generation, IndividualConstraint *individualConstraint): RealGeneticOperator(rate, generation, individualConstraint), Mutation(generation->getChilds())
 {
+    setRange(0, generation->getChilds()->getT() - 1);
+}
 
+RealMutation::~RealMutation()
+{
+    mutant = 0;
 }
 
 void RealMutation::mutate()
@@ -15,8 +20,7 @@ void RealMutation::mutate()
 
 void RealMutation::apply()
 {
-    uint y = childs->getPopulation()->size();
-    for(currentChild = 0; currentChild < y; currentChild++){
+    for(currentChild = range->getMinimum(); currentChild <= range->getMaximum(); currentChild++){
         if(r() <= rate){
             mutate();
         }
